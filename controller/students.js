@@ -1,31 +1,43 @@
-const { response } = require('express');
+const { response, request } = require('express');
 
+const { getStudents } = require('../database/queries/student.queries');
 
-const studentsGet = (req, res) => {
-    res.json({
-        msg: 'get API - controlador'
-    });
+const studentsGet = async(req = request, res = response) => {
+  try{
+    const students = await getStudents();
+    res.json(students);
+  }catch(error){
+      res.status(500).json({
+        msg: error
+      });
+  }
 }
 
-const studentsPut = (req, res = response) => {
+const studentGet = (req, res = response) => {
+  res.json({
+      msg: 'get API - controlador',
+  });
+}
+
+const studentPut = (req, res = response) => {
     res.json({
         msg: 'put API - controlador',
     });
 }
 
-const studentsPost = (req, res = response) => {
+const studentPost = (req, res = response) => {
     res.json({
         msg: 'post API - controlador',
     });
 }
 
-const studentsDelete = (req, res = response) => {
+const studentDelete = (req, res = response) => {
     res.json({ 
         msg: 'delete API - controlador'
     });
 }
 
-const studentsPatch = (req, res = response) => {
+const studentPatch = (req, res = response) => {
     res.json({
         msg: 'patch API - controlador'
     });
@@ -33,8 +45,9 @@ const studentsPatch = (req, res = response) => {
 
 module.exports = {
     studentsGet,
-    studentsPut,
-    studentsPost,
-    studentsDelete,
-    studentsPatch,
+    studentGet,
+    studentPut,
+    studentPost,
+    studentDelete,
+    studentPatch,
 }
