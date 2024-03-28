@@ -2,20 +2,23 @@ const { Router } = require('express');
 const router = Router();
 
 const { studentsGet, 
-        studentsPatch, 
-        studentsPut, 
-        studentsPost, 
-        studentsDelete } = require('../controller/students');
+        studentGet,
+        studentPatch, 
+        studentPut,
+        studentPost, 
+        studentDelete } = require('../controller/students');
 
-router.get('/', studentsGet);
+router.get('/', [], studentsGet);
 
-router.put('/:id', studentsPut);
+router.get('/:id', studentGet)
 
-router.post('/', studentsPost);
+router.put('/:id', studentPut);
 
-router.delete('/', studentsDelete);
+router.post('/', studentPost);
 
-router.patch('/', studentsPatch);
+router.delete('/:id', studentDelete);
+
+router.patch('/:id', studentPatch);
 
 
 module.exports = router;
