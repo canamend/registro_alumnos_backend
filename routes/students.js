@@ -1,5 +1,8 @@
 const { Router } = require('express');
+const { check } = require('express-validator');
 const router = Router();
+
+const { validarCampos } = require('../middlewares/validar-campos');
 
 const { studentsGet, 
         studentGet,
@@ -10,7 +13,10 @@ const { studentsGet,
 
 router.get('/', [], studentsGet);
 
-router.get('/:id', studentGet)
+router.get('/:id', [
+  check('id', 'no es un id válido').isNumeric(),
+  validarCampos
+], studentGet);
 
 router.put('/:id', studentPut);
 
