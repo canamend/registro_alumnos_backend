@@ -1,3 +1,3 @@
-# WebServer + RestServer
+# Backend para llevar registro de alumnos
 
-Recordar ejecutar ``` npm install ``` para reconstruir los módulos de Node.
+Ejecutar ``` npm install ``` para reconstruir los módulos de Node.
