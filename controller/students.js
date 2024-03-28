@@ -2,7 +2,9 @@ const { response, request } = require('express');
 
 const { getStudents, 
         getStudent, 
-        postStudent} = require('../database/queries/student.queries');
+        postStudent,
+        putStudent,
+        deleteStudent} = require('../database/queries/student.queries');
 
 const studentsGet = async(req = request, res = response) => {
   try{
@@ -23,39 +25,50 @@ const studentGet = async(req = request, res = response, next) => {
   }
 }
 
-const studentPut = (req, res = response) => {
-    res.json({
-        msg: 'put API - controlador',
-    });
+const studentUpdate = async(req = request, res = response, next) => {
+  try {
+    const { id } = req.params;
+    const { nombre, edad, grupo, promedio_general } = req.body;
+    const updatedStudent = await putStudent( nombre, 
+                                             edad, 
+                                             grupo, 
+                                             promedio_general, 
+                                             id );
+    res.json(updatedStudent);
+  } catch (error) {
+    next(error);
+  }
 }
 
 const studentPost = async(req = request, res = response, next) => {
     try {
       const { nombre, edad, grupo, promedio_general } = req.body;
-      const newStudent = await postStudent( nombre, edad, grupo, promedio_general, activo = true );
+      const newStudent = await postStudent( nombre, 
+                                            edad, 
+                                            grupo, 
+                                            promedio_general, 
+                                            activo = true );
       res.json(newStudent)
     } catch (error) {
       next(error);
     }
 }
 
-const studentDelete = (req, res = response) => {
-    res.json({ 
-        msg: 'delete API - controlador'
-    });
+const studentDelete = async(req = request, res = response, next) => {
+  try {
+    const { id } = req.params;
+    const deletedStudent = await deleteStudent( id );
+    res.json(deletedStudent);
+  } catch (error) {
+    next(error);
+  }
 }
 
-const studentPatch = (req, res = response) => {
-    res.json({
-        msg: 'patch API - controlador'
-    });
-}
 
 module.exports = {
     studentsGet,
     studentGet,
-    studentPut,
+    studentUpdate,
     studentPost,
     studentDelete,
-    studentPatch,
 }
