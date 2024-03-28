@@ -1,7 +1,8 @@
 const { response, request } = require('express');
 
 const { getStudents, 
-        getStudent } = require('../database/queries/student.queries');
+        getStudent, 
+        postStudent} = require('../database/queries/student.queries');
 
 const studentsGet = async(req = request, res = response) => {
   try{
@@ -28,10 +29,14 @@ const studentPut = (req, res = response) => {
     });
 }
 
-const studentPost = (req, res = response) => {
-    res.json({
-        msg: 'post API - controlador',
-    });
+const studentPost = async(req = request, res = response, next) => {
+    try {
+      const { nombre, edad, grupo, promedio_general } = req.body;
+      const newStudent = await postStudent( nombre, edad, grupo, promedio_general, activo = true );
+      res.json(newStudent)
+    } catch (error) {
+      next(error);
+    }
 }
 
 const studentDelete = (req, res = response) => {
