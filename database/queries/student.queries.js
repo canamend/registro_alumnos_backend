@@ -30,8 +30,30 @@ const postStudent = ( ...studentData ) => {
   });
 }
 
+const putStudent = ( ...studentData ) => {
+  return new Promise( (resolve, reject) => {
+    const query = "UPDATE estudiante SET nombre=?, edad=?, grupo=?, promedio_general=? WHERE id=?";
+    dbConnection.query(query, studentData, (err) =>{
+      if(err) reject(err);
+      else resolve('Registro actualizado correctamente');
+    })
+  });
+}
+
+const deleteStudent = ( id ) => {
+  return new Promise( (resolve, reject) => {
+    const query = "UPDATE estudiante SET activo=false WHERE id=?";
+    dbConnection.query(query, id, (err) =>{
+      if(err) reject(err);
+      else resolve('Registro eliminado correctamente');
+    })
+  });
+}
+
 module.exports = {
   getStudents,
   getStudent,
-  postStudent
+  postStudent,
+  putStudent,
+  deleteStudent
 }
