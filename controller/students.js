@@ -1,22 +1,25 @@
 const { response, request } = require('express');
 
-const { getStudents } = require('../database/queries/student.queries');
+const { getStudents, 
+        getStudent } = require('../database/queries/student.queries');
 
 const studentsGet = async(req = request, res = response) => {
   try{
     const students = await getStudents();
     res.json(students);
   }catch(error){
-      res.status(500).json({
-        msg: error
-      });
+      next(error);
   }
 }
 
-const studentGet = (req, res = response) => {
-  res.json({
-      msg: 'get API - controlador',
-  });
+const studentGet = async(req = request, res = response, next) => {
+  try {
+    const { id = 0 } = req.params;
+    const student = await getStudent(id);
+    res.json(student);
+  }catch(error){
+    next(error);
+  }
 }
 
 const studentPut = (req, res = response) => {
