@@ -16,7 +16,7 @@ const dataValidator = [
     .isLength({min: 10, max: 70}),
   body('edad','La edad es requerida').exists(),
   body('grupo','El grupo del alumno es requerido').exists(),
-  body('promedio_general','El promedio del alumno es requerido').exists(),
+  body('promedioGeneral','El promedio del alumno es requerido').exists(),
   validarCampos
 ];
 

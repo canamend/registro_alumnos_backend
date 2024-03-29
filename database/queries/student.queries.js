@@ -15,14 +15,14 @@ const getStudent = (id) => {
     const query = "SELECT * FROM estudiante WHERE id=?";
     dbConnection.query(query, [id], (err, result) => {
       if(err) reject(err);
-      else resolve(result);
+      else resolve(result[0]);
     })
   });
 }
 
 const postStudent = ( ...studentData ) => {
   return new Promise( (resolve, reject) => {
-    const query = "INSERT INTO estudiante (nombre, edad, grupo, promedio_general, activo) VALUES(?,?,?,?,?)";
+    const query = "INSERT INTO estudiante (nombre, edad, grupo, promedioGeneral, activo) VALUES(?,?,?,?,?)";
     dbConnection.query(query, studentData, (err) =>{
       if(err) reject(err);
       else resolve('Registro guardado correctamente');
@@ -32,7 +32,7 @@ const postStudent = ( ...studentData ) => {
 
 const putStudent = ( ...studentData ) => {
   return new Promise( (resolve, reject) => {
-    const query = "UPDATE estudiante SET nombre=?, edad=?, grupo=?, promedio_general=? WHERE id=?";
+    const query = "UPDATE estudiante SET nombre=?, edad=?, grupo=?, promedioGeneral=? WHERE id=?";
     dbConnection.query(query, studentData, (err) =>{
       if(err) reject(err);
       else resolve('Registro actualizado correctamente');

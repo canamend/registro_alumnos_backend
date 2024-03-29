@@ -28,11 +28,11 @@ const studentGet = async(req = request, res = response, next) => {
 const studentUpdate = async(req = request, res = response, next) => {
   try {
     const { id } = req.params;
-    const { nombre, edad, grupo, promedio_general } = req.body;
+    const { nombre, edad, grupo, promedioGeneral } = req.body;
     const updatedStudent = await putStudent( nombre, 
                                              edad, 
                                              grupo, 
-                                             promedio_general, 
+                                             promedioGeneral, 
                                              id );
     res.json(updatedStudent);
   } catch (error) {
@@ -42,11 +42,11 @@ const studentUpdate = async(req = request, res = response, next) => {
 
 const studentPost = async(req = request, res = response, next) => {
     try {
-      const { nombre, edad, grupo, promedio_general } = req.body;
+      const { nombre, edad, grupo, promedioGeneral } = req.body;
       const newStudent = await postStudent( nombre, 
                                             edad, 
                                             grupo, 
-                                            promedio_general, 
+                                            promedioGeneral, 
                                             activo = true );
       res.json(newStudent)
     } catch (error) {
